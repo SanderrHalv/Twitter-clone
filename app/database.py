@@ -2,16 +2,32 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 import os
 from dotenv import load_dotenv
+import traceback
 
-load_dotenv() #load enviroment variables from .env file
-DATABASE_URL = os.getenv("DATABASE_URL") #Get database url from .env file
+# Load environment variables
+load_dotenv()
+DATABASE_URL = os.getenv("DATABASE_URL")
+
 print("🔌 DATABASE_URL from .env:", DATABASE_URL)
 
+if not DATABASE_URL:
+    raise ValueError("DATABASE_URL not found in environment variables")
 
-DATABASE_URL = os.getenv("DATABASE_URL") #Get database url from .env file
-engine = create_engine(DATABASE_URL) # create engine using database url
+try:
+    # Create engine
+    engine = create_engine(DATABASE_URL)
+    
+    # Test connection
+    connection = engine.connect()
+    connection.close()
+    print("✅ Database connection successful!")
+except Exception as e:
+    print(f"❌ Database connection error: {str(e)}")
+    print(traceback.format_exc())
+    raise
 
-SessionLocal = sessionmaker(autocommit=False, autoFlush=False, bind=engine) # Create session for interacting with the DB
+# Create session factory with corrected parameter name
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-Base = declarative_base() #create a base class for the models.
-
+# Create base class for models
+Base = declarative_base()
