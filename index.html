@@ -61,7 +61,6 @@
     </div>
 
     <script>
-        // API base URL - change this to your actual API URL when deployed
         const API_URL = 'postgresql://twitterclone_db_fabz_user:qttH4ruYWFiz5IHag21SoeegTadLZ3oH@dpg-cvn5dj2dbo4c73bf660g-a.frankfurt-postgres.render.com/twitterclone_db_fabz';
 
         // Tab functionality
@@ -75,7 +74,7 @@
             });
         });
 
-        // Fetch and display tweets
+        // Fetch og display tweets
         async function fetchTweets() {
             try {
                 const response = await fetch(`${API_URL}/tweets/`);
@@ -87,7 +86,7 @@
             }
         }
 
-        // Display tweets in the container
+        // setter opp en conatiner for tweets
         function displayTweets(tweets) {
             const container = document.getElementById('tweets-container');
             container.innerHTML = '';
@@ -117,19 +116,19 @@
             });
         }
 
-        // Show edit form for a tweet
+        // Viser edit form
         function showEditForm(tweetId) {
             document.getElementById(`content-${tweetId}`).style.display = 'none';
             document.getElementById(`edit-form-${tweetId}`).style.display = 'block';
         }
 
-        // Cancel edit and hide form
+        // Ta bort edit form
         function cancelEdit(tweetId) {
             document.getElementById(`content-${tweetId}`).style.display = 'block';
             document.getElementById(`edit-form-${tweetId}`).style.display = 'none';
         }
 
-        // Update a tweet
+        // update en tweet
         async function updateTweet(tweetId) {
             const content = document.getElementById(`edit-content-${tweetId}`).value;
             
@@ -155,7 +154,7 @@
             }
         }
 
-        // Delete a tweet
+        // slett en tweet
         async function deleteTweet(tweetId) {
             if (confirm('Are you sure you want to delete this tweet?')) {
                 try {
@@ -175,7 +174,7 @@
             }
         }
 
-        // Post a new tweet
+        // Legg til en ny tweet
         document.getElementById('post-tweet').addEventListener('click', async () => {
             const accountId = document.getElementById('account-id').value;
             const content = document.getElementById('tweet-content').value;
@@ -207,7 +206,7 @@
             }
         });
 
-        // Search tweets
+        // Søk tweets
         document.getElementById('search-tweets').addEventListener('click', async () => {
             const query = document.getElementById('search-query').value;
             
@@ -226,7 +225,7 @@
             }
         });
 
-        // Search hashtags
+        // Søk hashtags
         document.getElementById('search-hashtags').addEventListener('click', async () => {
             const query = document.getElementById('search-query').value.replace('#', '');
             
@@ -248,7 +247,7 @@
         // Refresh tweets
         document.getElementById('refresh-tweets').addEventListener('click', fetchTweets);
 
-        // Create account
+        // Lag bruker
         document.getElementById('create-account').addEventListener('click', async () => {
             const username = document.getElementById('username').value;
             const email = document.getElementById('email').value;
@@ -282,7 +281,7 @@
                         const errorJson = JSON.parse(errorText);
                         errorMessage = errorJson.detail || 'Unknown error';
                     } catch {
-                        // If not JSON, use the raw text
+                        // Hvis det ikke er JSON, bruk den rå teksten
                         errorMessage = errorText || 'Unknown error';
                     }
                     alert(`Failed to create account: ${errorMessage}`);
@@ -294,7 +293,7 @@
             }
         });
 
-        // Fetch and display accounts
+        // Hent og hvis kontoer
         async function fetchAccounts() {
             try {
                 const response = await fetch(`${API_URL}/accounts/`);
@@ -306,7 +305,7 @@
             }
         }
 
-        // Display accounts in the container
+        // hvis kontoer i en container
         function displayAccounts(accounts) {
             const container = document.getElementById('accounts-container');
             container.innerHTML = '';
@@ -318,7 +317,7 @@
 
             accounts.forEach(account => {
                 const accountElement = document.createElement('div');
-                accountElement.className = 'tweet'; // Reusing the tweet style
+                accountElement.className = 'tweet'; 
                 accountElement.innerHTML = `
                     <div class="tweet-header">Username: ${account.username}</div>
                     <div class="tweet-content">
@@ -331,7 +330,7 @@
             });
         }
 
-        // Search accounts
+        // Søk etter brukere
         document.getElementById('search-accounts').addEventListener('click', async () => {
             const query = document.getElementById('account-search-query').value;
             
@@ -350,11 +349,12 @@
             }
         });
 
-        // List all accounts
+        // List alle brukere
         document.getElementById('list-accounts').addEventListener('click', fetchAccounts);
 
-        // Initial data load
+        // starter med å hente tweets
         fetchTweets();
+        console.log(API_URL);
     </script>
 </body>
 </html>
