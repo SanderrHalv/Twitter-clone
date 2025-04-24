@@ -31,4 +31,4 @@ class Tweet(TweetBase):
     created_at: datetime
 
     class Config:
-        orm_mode = True
+        from_attributes = True  # This replaces orm_mode = True

@@ -14,8 +14,8 @@ if not DATABASE_URL:
     raise ValueError("DATABASE_URL not found in environment variables")
 
 try:
-    # Create engine
-    engine = create_engine(DATABASE_URL)
+    # Create engine with echo=True to see SQL queries for debugging
+    engine = create_engine(DATABASE_URL, echo=True)
     
     # Test connection
     connection = engine.connect()
@@ -26,7 +26,7 @@ except Exception as e:
     print(traceback.format_exc())
     raise
 
-# Create session factory with corrected parameter name
+# Create session factory
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 # Create base class for models

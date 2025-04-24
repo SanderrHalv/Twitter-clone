@@ -13,7 +13,7 @@ class Account(Base):
     email = Column(String, unique=True, index=True)
     created_at = Column(DateTime, default=datetime.now(timezone.utc))
     
-    tweets = relationship("Tweet", back_populates="account")
+    tweets = relationship("Tweet", back_populates="owner")
     
 #Defining tweet table
 class Tweet(Base):
