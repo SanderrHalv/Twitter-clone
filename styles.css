@@ -78,6 +78,11 @@ button:hover {
     border-radius: 5px 0 0 5px;
 }
 .search-container button {
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.search-button {
     border-radius: 0 5px 5px 0;
 }
 .account-form {
@@ -116,12 +121,7 @@ button:hover {
     background-color: white;
     font-weight: bold;
 }
-.tab-content {
-    display: none;
-}
-.tab-content.active {
-    display: block;
-}
+
 .edit-form {
     display: none;
     margin-top: 10px;
